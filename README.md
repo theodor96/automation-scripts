@@ -1,1 +1,1 @@
-# autoit-scripts
+# automation-scripts
