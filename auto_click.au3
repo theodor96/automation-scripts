@@ -1,10 +1,6 @@
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;	  Copyright Pgmforever 2014	    ;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;;;;;;;;;;;;;;;;;;;;
-;	  Includes	    ;
-;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;    Copyright Ⓒ 2014 -- G. Th. Șerbana    ;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 #include <IE.au3>
 #include <Date.au3>
@@ -12,7 +8,7 @@
 #include <MsgBoxConstants.au3>
 
 ;;;;;;;;;;;;;;;;;;;;;
-;	Global Code		;
+;    Global Code    ;
 ;;;;;;;;;;;;;;;;;;;;;
 
 HotKeySet('!{esc}', 'terminate')
@@ -25,10 +21,11 @@ Global $oIE = false
 AutoClickBegin(getUrl() & getRandomString())
 
 ;;;;;;;;;;;;;;;;;;;;;
-;	  Functions	    ;
+;     Functions	    ;
 ;;;;;;;;;;;;;;;;;;;;;
 
-;shows/hides the iexplore window (if it exists) (Ctrl+Tab combination)
+; shows/hides the iexplore window (if it exists) (Ctrl+Tab combination)
+;
 Func toggleVisibility()
 	If $oIE <> false Then
 		Local $hWnd = _IEPropertyGet($oIE, 'hwnd')
@@ -42,14 +39,16 @@ Func toggleVisibility()
 	EndIf
 EndFunc			
 
-;exit the program by user request (Alt+Esc combination)
+; exit the program by user request (Alt+Esc combination)
+;
 Func terminate()
 	If MsgBox($MB_YESNO + $MB_ICONQUESTION, 'AutoClick', 'Are you sure you want to exit?') = $IDYES Then
 		Exit
 	EndIf
 EndFunc
 
-;@param $sec - receives a number of seconds and returns the time in words
+; @param $sec - receives a number of seconds and returns the time in words
+;
 Func getTimeFromSeconds($sec)
 	If $sec < 60 Then
 		Return $sec & ' second(s)'
@@ -62,7 +61,8 @@ Func getTimeFromSeconds($sec)
 	Return Int($sec / 3600) & ' hour(s) and ' & Int(Mod($sec, 3600) / 60) & ' minute(s)'
 EndFunc
 
-;give info & statistics (only if we have done work) then clear whatever resource might be used
+; give info & statistics (only if we have done work) then clear whatever resource might be used
+;
 Func onProgramShutDown()
 	Local $diff = $clickCount - $keepTrackOf
 	If $oIE <> false Or $diff <> 0 Then
@@ -72,7 +72,8 @@ Func onProgramShutDown()
 	_IEQuit($oIE)
 EndFunc
 
-;show input textbox for url
+; show input textbox for url
+;
 Func getUrl()
 	Local $inputUrl = InputBox('AutoClick', 'Alt+Esc = Exit' & @CRLF & 'Ctrl+Tab = Toggle IE visiblity' & @CRLF & 'Dev contact: tedy_096@yahoo.com' & @CRLF & 'Copyright: 2014 Teddy aka pgmforever' & @CRLF & @CRLF & 'Please enter your URL', 'http://www.buxvertise.com/icon.php?i=4096')
 	
@@ -90,7 +91,8 @@ Func getUrl()
 	Return $inputUrl
 EndFunc
 
-;generate a random string of a random length
+; generate a random string of a random length
+;
 Func getRandomString()
     Local $text = ""
     For $i = 1 To Random(5, 20, 1) ; Return an integer between 5 and 20 to determine the length of the string.
@@ -105,7 +107,8 @@ Func _IsValidURL($sPath)
     Return $sRet[0]
 EndFunc
 
-;begin the actual clicking
+; begin the actual clicking
+;
 Func AutoClickBegin($url, $restart = false)
 	If $restart = true Then
 		$oIE = _IECreate('about: blank', 0, 0)
